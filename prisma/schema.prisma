@@ -1,0 +1,185 @@
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+model User {
+  id    String @id @default(cuid())
+  email String @unique
+  name  String
+
+  password           Password?
+  groups             UserGroup[]
+  transactions       TransactionUser[]
+  installments       TransactionInstallment[]
+  transactionMethods TransactionMethod[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Password {
+  hash String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String @unique
+
+  @@index([userId])
+}
+
+model Category {
+  id   String @id @default(cuid())
+  name String
+
+  transactions Transaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Group {
+  id   String @id @default(cuid())
+  name String
+
+  users        UserGroup[]
+  transactions TransactionUser[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserGroup {
+  id          String  @id @default(cuid())
+  admin       Boolean @default(false)
+  permissions Json
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  groupId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, groupId])
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+enum TransactionDuration {
+  ONE_TIME
+  RECURRING
+}
+
+enum TransactionIteration {
+  SINGULAR
+  MONTHLY
+  YEARLY
+}
+
+enum TransactionApproval {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum TransactionMethodType {
+  CREDIT_CARD
+  DEBIT_CARD
+  BANK_ACCOUNT
+}
+
+model TransactionMethod {
+  id              String                @id @default(cuid())
+  name            String
+  dueDate         DateTime
+  methodType      TransactionMethodType
+  transactionType TransactionType
+
+  transactions Transaction[]
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Transaction {
+  id           String   @id @default(cuid())
+  description  String
+  total        Float
+  installments Int
+  dueDate      DateTime @updatedAt
+  active       Boolean  @default(true)
+
+  type      TransactionType
+  duration  TransactionDuration
+  iteration TransactionIteration
+
+  startedAt  DateTime? @updatedAt
+  finishedAt DateTime? @updatedAt
+
+  approval   TransactionApproval @default(value: PENDING)
+  approvalAt DateTime?           @updatedAt
+
+  method   TransactionMethod @relation(fields: [methodId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  methodId String
+
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  categoryId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([methodId, categoryId])
+}
+
+model TransactionUser {
+  id            String  @id @default(cuid())
+  createdByUser Boolean
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  group   Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  groupId String?
+
+  installments TransactionInstallment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, groupId])
+}
+
+model TransactionInstallment {
+  id          String   @id @default(cuid())
+  value       Float
+  percentage  Int      @default(100)
+  installment Int
+  dueDate     DateTime
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  transactionUser   TransactionUser @relation(fields: [transactionUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  transactionUserId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
