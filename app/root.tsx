@@ -1,4 +1,3 @@
-import { env } from "@/env/server";
 import type { MetaFunction } from "@remix-run/node";
 import {
   Links,

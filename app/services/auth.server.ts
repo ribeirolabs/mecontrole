@@ -12,10 +12,10 @@ const googleAuth = new GoogleStrategy(
     callbackURL: "http://localhost:3303/auth/google/callback",
   },
   async (response) => {
-    console.log("auth response", response);
-
     return {
       email: response.profile.emails[0].value,
+      name: response.profile.displayName,
+      photo: response.profile.photos[0]?.value,
       token: response.accessToken,
     };
   }
