@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    --box-shadow-color: var(--nc);
+    box-shadow: inset 0 -4px 0 hsl(var(--box-shadow-color) / 20%);
+    @apply border-none;
+  }
+
+  .btn:active {
+    box-shadow: none;
+  }
+
+  .btn-primary {
+    --box-shadow-color: var(--pc);
+  }
+
+  .btn-secondary {
+    --box-shadow-color: var(--sc);
+  }
+
+  .btn-neutral {
+    --box-shadow-color: var(--nc);
+  }
+
+  .btn-accent {
+    --box-shadow-color: var(--ac);
+  }
+
+  [data-loading="true"] {
+    @apply loading;
+  }
+}

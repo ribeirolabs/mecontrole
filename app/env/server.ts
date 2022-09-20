@@ -14,8 +14,6 @@ export const formatErrors = (errors: ZodFormattedError<Map<string, string>>) =>
 
 const _serverEnv = serverSchema.safeParse(process.env);
 
-console.log(_serverEnv);
-
 if (_serverEnv.success === false) {
   console.error(
     "❌ Invalid environment variables:\n",

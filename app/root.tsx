@@ -10,7 +10,15 @@ import {
 import styles from "./styles/app.css";
 
 export function links() {
-  return [{ rel: "stylesheet", href: styles }];
+  return [
+    styles,
+    "/assets/fontawesome/css/fontawesome.min.css",
+    "/assets/fontawesome/css/brands.min.css",
+    "/assets/fontawesome/css/solid.min.css",
+  ].map((href) => ({
+    rel: "stylesheet",
+    href,
+  }));
 }
 
 export const meta: MetaFunction = () => ({
@@ -26,7 +34,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-base-200 h-screen">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
