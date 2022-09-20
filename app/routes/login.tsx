@@ -3,7 +3,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { Form, useTransition } from "@remix-run/react";
 
 export const loader: LoaderFunction = ({ request }) => {
-  return auth.isAuthenticated(request, {
+  return auth(request).isAuthenticated(request, {
     successRedirect: "/",
   });
 };

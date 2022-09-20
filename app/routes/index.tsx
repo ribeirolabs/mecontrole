@@ -3,7 +3,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 
 export const loader: LoaderFunction = ({ request }) => {
-  return auth.isAuthenticated(request, {
+  return auth(request).isAuthenticated(request, {
     failureRedirect: "/login",
   });
 };
@@ -21,9 +21,8 @@ export default function Index() {
           </Form>
         </div>
         <div className="divider"></div>
-        <h1 className="text-4xl font-bold text-center">
-          Em breve, Me Controle
-        </h1>
+        <h1 className="text-4xl font-bold text-center">Me Controle</h1>
+        <p className="text-center">Em breve</p>
       </div>
     </div>
   );
