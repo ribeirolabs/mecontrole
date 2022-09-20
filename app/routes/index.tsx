@@ -12,11 +12,19 @@ export default function Index() {
   const data = useLoaderData();
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1 className="text-2xl font-bold">Welcome to Remix, {data.name}</h1>
-      <Form action="/logout" method="post">
-        <button className="btn btn-primary">Logout</button>
-      </Form>
+    <div className="p-4">
+      <div className="bg-base-100 max-w-lg mx-auto p-4">
+        <div className="flex justify-between items-center">
+          <span className="font-bold"> {data.name}</span>
+          <Form action="/logout" method="post">
+            <button className="btn btn-sm">Logout</button>
+          </Form>
+        </div>
+        <div className="divider"></div>
+        <h1 className="text-4xl font-bold text-center">
+          Em breve, Me Controle
+        </h1>
+      </div>
     </div>
   );
 }
