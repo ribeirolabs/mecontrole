@@ -1,10 +1,10 @@
-import { auth } from "@/services/auth.server";
+import { auth, authRoutes } from "@/services/auth.server";
 import type { LoaderFunction } from "@remix-run/node";
 import { Form, useTransition } from "@remix-run/react";
 
 export const loader: LoaderFunction = ({ request }) => {
   return auth(request).isAuthenticated(request, {
-    successRedirect: "/",
+    successRedirect: authRoutes.success,
   });
 };
 

@@ -28,3 +28,13 @@ export const auth = (request: Request): Authenticator => {
 
   return auth;
 };
+
+export const requireAuth = (request: Request) =>
+  auth(request).isAuthenticated(request, {
+    failureRedirect: authRoutes.failure,
+  });
+
+export const authRoutes = {
+  success: "/app",
+  failure: "/login",
+};
