@@ -1,24 +1,5 @@
 {
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "app.mecontrole.com.br"
-        }
-      ],
-      "destination": "/app/:path*"
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "app.mecontrole.com"
-        }
-      ],
-      "destination": "/app/:path*"
-    }
+  "redirects": [
+    { "source": "/(.*).domain.com ", "destination": "domain.com/$1" }
   ]
 }

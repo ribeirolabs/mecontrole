@@ -6,13 +6,18 @@ import { env } from "@/env/server";
 export const auth = (request: Request): Authenticator => {
   const auth = new Authenticator(sessionStorage);
 
-  const { origin } = new URL(request.url);
+  const url = new URL(request.url);
+
+  const domain =
+    env.NODE_ENV === "development"
+      ? `http://localhost:${url.port}`
+      : url.origin;
 
   const googleAuth = new GoogleStrategy(
     {
       clientID: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${origin}/auth/google/callback`,
+      callbackURL: `${domain}/auth/google/callback`,
     },
     async (response) => {
       return {
