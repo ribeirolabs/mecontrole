@@ -4,29 +4,53 @@
 
 @layer components {
   .btn {
-    --box-shadow-color: var(--nc);
     box-shadow: inset 0 -4px 0 hsl(var(--box-shadow-color) / 20%);
-    @apply border-none;
+    @apply gap-2 font-bold tracking-wider rounded-none;
+  }
+
+  .btn,
+  .btn.btn-outline:hover {
+    --box-shadow-color: var(--nc);
+  }
+
+  .btn.btn-outline {
+    --box-shadow-color: var(--n);
   }
 
   .btn:active {
     box-shadow: none;
   }
 
-  .btn-primary {
+  .btn-primary,
+  .btn-primary.btn-outline:hover {
     --box-shadow-color: var(--pc);
   }
 
-  .btn-secondary {
+  .btn-primary.btn-outline {
+    --box-shadow-color: var(--p);
+  }
+
+  .btn-secondary,
+  .btn-secondary.btn-outline:hover {
     --box-shadow-color: var(--sc);
   }
-
-  .btn-neutral {
-    --box-shadow-color: var(--nc);
+  .btn-secondary.btn-outline {
+    --box-shadow-color: var(--s);
   }
 
-  .btn-accent {
+  .btn-neutral,
+  .btn-neutral.btn-outline:hover {
+    --box-shadow-color: var(--nc);
+  }
+  .btn-neutral.btn-outline {
+    --box-shadow-color: var(--n);
+  }
+
+  .btn-accent .btn-accent.btn-outline:hover {
     --box-shadow-color: var(--ac);
+  }
+  .btn-accent.btn-outline {
+    --box-shadow-color: var(--a);
   }
 
   [data-loading="true"] {

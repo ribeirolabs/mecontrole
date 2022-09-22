@@ -1,7 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+const theme = require("daisyui/src/colors/themes")["[data-theme=emerald]"];
+
 module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      sans: "Rubik, sans-serif",
+    },
     extend: {},
   },
   plugins: [require("daisyui")],
@@ -9,9 +14,9 @@ module.exports = {
     themes: [
       {
         emerald: {
-          ...require("daisyui/src/colors/themes")["[data-theme=emerald]"],
-          secondary: "#adb3bd",
-          "secondary-content": "#282d34",
+          ...theme,
+          secondary: theme.neutral,
+          "secondary-content": theme["neutral-content"],
           accent: "#facc15",
           "accent-content": "#382d00",
         },

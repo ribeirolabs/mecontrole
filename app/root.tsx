@@ -11,14 +11,30 @@ import styles from "./styles/app.css";
 
 export function links() {
   return [
-    styles,
-    "/assets/fontawesome/css/fontawesome.min.css",
-    "/assets/fontawesome/css/brands.min.css",
-    "/assets/fontawesome/css/solid.min.css",
-  ].map((href) => ({
-    rel: "stylesheet",
-    href,
-  }));
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "true",
+    },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&display=swap",
+    },
+  ].concat(
+    [
+      styles,
+      "/assets/fontawesome/css/fontawesome.min.css",
+      "/assets/fontawesome/css/brands.min.css",
+      "/assets/fontawesome/css/solid.min.css",
+    ].map((href) => ({
+      rel: "stylesheet",
+      href,
+    }))
+  );
 }
 
 export const meta: MetaFunction = () => ({

@@ -15,13 +15,14 @@ export default function Login() {
       <Form
         action="/auth/google"
         method="post"
-        className="bg-base-100 max-w-lg mx-auto p-4 rounded"
+        className="max-w-lg mx-auto p-4 rounded"
       >
-        <h2 className="text-2xl font-bold">Login</h2>
+        <h2 className="text-2xl font-bold">MeControle - Entrar</h2>
         <div className="divider my-2"></div>
-        <button className="btn btn-block gap-2" disabled={state !== "idle"}>
+
+        <button className="btn btn-block">
           <i className="fa-brands fa-google"></i>
-          Login with Google
+          Entrar com Google
         </button>
       </Form>
     </div>
